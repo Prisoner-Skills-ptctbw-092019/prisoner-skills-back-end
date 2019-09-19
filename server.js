@@ -78,4 +78,38 @@ async function add(prisoner) {
   const [id] = await db('prisoners').insert(prisoner);
   return (prisoner.name + ' added to the Prisoner Database');
 }
+
+server.get('/prisons', (req, res) => {
+  findprisons()
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err => res.send(err));
+});
+
+server.post('/prisons', (req, res) => {
+  let prisons = req.body;
+
+  addprisons(prisons)
+  
+    .then(saved => {
+
+      //create a session 
+      //send back a cookie that corponds to session
+      res.status(201).json(saved);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+      console.log(error)
+    });
+});
+
+function findprisons() {
+  return db('prisons').select('*');
+}
+
+async function addprisons(prisons) {
+  const [id] = await db('Prisons').insert(prisons);
+  return (prisons.Prison_Name + ' added to the Prison Database');
+}
 module.exports = server;

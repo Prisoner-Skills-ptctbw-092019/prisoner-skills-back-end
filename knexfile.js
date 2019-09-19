@@ -5,7 +5,7 @@ module.exports = {
     client: 'sqlite3',
     // the location of our db
     connection: {
-      filename: './database/auth.db3',
+      filename: './database/prisonskills.db3',
     },
     // necessary when using sqlite3
     useNullAsDefault: true
