@@ -3,7 +3,7 @@ exports.up = function(knex) {
       prisons.increments('prisonID');
   
       prisons
-        .string('Prison Name', 128)
+        .string('Prison_Name', 128)
         .notNullable()
         .unique();
     });
