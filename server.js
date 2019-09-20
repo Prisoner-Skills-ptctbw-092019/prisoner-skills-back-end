@@ -129,4 +129,53 @@ server.get('/prisons/:id', (req, res) => {
 })
 })
 
+server.put('/prisons/:id', (req, res) => {
+  const changes = req.body
+
+  db('Prisons')
+  .where('prisonID', '=', req.params.id)
+  .update(changes)
+
+  .then(count => {
+    if(count > 0) {
+      res.status(200).json({
+        message: 'Prison Updated'
+      })
+    } else {
+      res.status(404).json({ 
+          message: 'ID seems to be incorrect' 
+        })
+    }
+  })
+  .catch(error => {
+    res.status(500).json({
+        message: 'Could not update!'
+    })
+  })
+})
+
+server.delete('/prisons/:id', (req, res) => {
+
+  db('Prisons')
+  .where('prisonID', '=', req.params.id)
+  .del()
+ 
+  .then(count => {
+     if(count > 0) {
+       res.status(200).json({
+         message: 'Prison Deleted'
+       })
+     } else {
+       res.status(404).json({
+           message: 'ID doesnt seem to exist'
+         })
+     }
+  })
+  .catch(error => {
+    res.status(500).json({
+        message: 'Could not delete'
+     })
+  })
+ })
+
 module.exports = server;
