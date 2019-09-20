@@ -112,4 +112,21 @@ async function addprisons(prisons) {
   const [id] = await db('Prisons').insert(prisons);
   return (prisons.Prison_Name + ' added to the Prison Database');
 }
+
+server.get('/prisons/:id', (req, res) => {
+
+  const { id } = req.params;
+
+  return db('Prisoners').select('*')
+  .where('prisonID', '=',  id )
+  .then(prisoners => {
+    res.json(prisoners);
+  })
+  .catch(error => {
+    res.status(500).json({
+        message: 'Invalid Prison ID'
+     })
+})
+})
+
 module.exports = server;
