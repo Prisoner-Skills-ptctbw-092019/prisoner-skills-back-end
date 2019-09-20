@@ -7,7 +7,9 @@ exports.up = function(knex) {
         .notNullable()
         .unique();
       prisons
-        .string('prisonID').unique().notNullable()
+        .string('prisonID').unique().notNullable();
+      prisons
+        .string('description').notNullable();
     });
   };
   
