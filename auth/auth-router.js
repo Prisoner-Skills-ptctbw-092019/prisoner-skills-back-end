@@ -13,11 +13,11 @@ router.post('/register', (req, res) => {
   
     .then(saved => {
       req.session.user = user;
-      console.log(user)
       //create a session 
       //send back a cookie that corponds to session
-      res.status(201).json(saved);
-      console.log(user)
+      res.status(201).json({
+        message: `${user.username} was added as a user! Enjoy your Cookie!`
+      });
     })
     .catch(error => {
       res.status(500).json(error);
@@ -51,7 +51,7 @@ router.get('/logout', (req, res) =>{
   if (req.session) {
     req.session.destroy(err => {
       if (err) {
-        res.json({message: 'didnt work'});
+        res.json({message: 'uhhh logging out didnt work'});
       } else {
         res.end();
       }
