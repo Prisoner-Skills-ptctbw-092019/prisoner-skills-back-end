@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const session = require('express-session');
 const connectSessionKnex = require('connect-session-knex')
+const restricted = require('./auth/middleware.js');
 
 const authRouter = require('./auth/auth-router.js');
 const usersRouter = require('./users/users_router.js');
@@ -14,7 +15,6 @@ const KnexSessionStore = connectSessionKnex(session);
 
 const sessionConfig = {
   name: 'webauth',
-  //this should not be hard coded in
   secret: 'Greetings, Nevevar, my old friend.',
   cookie: {
     maxAge: 1000 * 60 * 60,
@@ -93,9 +93,6 @@ server.post('/prisons', (req, res) => {
   addprisons(prisons)
   
     .then(saved => {
-
-      //create a session 
-      //send back a cookie that corponds to session
       res.status(201).json(saved);
     })
     .catch(error => {
@@ -129,7 +126,7 @@ server.get('/prisons/:id', (req, res) => {
 })
 })
 
-server.put('/prisons/:id', (req, res) => {
+server.put('/prisons/:id', restricted, (req, res) => {
   const changes = req.body
 
   db('Prisons')
@@ -154,7 +151,7 @@ server.put('/prisons/:id', (req, res) => {
   })
 })
 
-server.delete('/prisons/:id', (req, res) => {
+server.delete('/prisons/:id', restricted, (req, res) => {
 
   db('Prisons')
   .where('prisonID', '=', req.params.id)

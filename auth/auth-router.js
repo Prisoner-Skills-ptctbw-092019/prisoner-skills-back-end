@@ -13,8 +13,6 @@ router.post('/register', (req, res) => {
   
     .then(saved => {
       req.session.user = user;
-      //create a session 
-      //send back a cookie that corponds to session
       res.status(201).json({
         message: `${user.username} was added as a user! Enjoy your Cookie!`
       });
@@ -32,9 +30,6 @@ router.post('/login', (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         req.session.user = user;
-      //create a session, !!already done in middleware
-      //send back a cookie that corponds to session!! also already done thanks to lib
-      //add info about our user to session
         res.status(200).json({
           message: `Welcome ${user.username}!, have a cookie!`,
         });
