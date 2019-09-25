@@ -10,6 +10,8 @@ exports.up = function(knex) {
         .string('prisonID').unique().notNullable();
       prisons
         .string('description').notNullable();
+      prisons
+        .string('location').notNullable();
     });
   };
   
