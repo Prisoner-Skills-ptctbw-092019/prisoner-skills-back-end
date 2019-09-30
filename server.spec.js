@@ -1,26 +1,24 @@
-const server = require('./server.js');
-const request = require('supertest')
+const request = require('supertest'); 
 
-describe('the server', ()=>{
-    describe('GET /', ()=>{
-        xit('should run the testing env', () =>{
-            expect(process.env.DB_ENV).toBe('testing');
-        });
+const server = require('./server.js'); 
 
-        it('should return status 200', () =>{
-            return request(server)
-            .get('/')
-            .then(res =>{
-                expect(res.status).toBe(200)
-            });
+describe('server.js', () => {
+  
+  describe('index route', () => {
+    it('should return an OK status code from the index route', async () => {
+      const expectedStatusCode = 200;
+
+      const response = await request(server).get('/');
+
+      expect(response.status).toEqual(expectedStatusCode);
+
     });
-        it('should return the correct object', () =>{
-            return request(server)
-            .get('/')
-            .then(res =>{
-                expect(res.type).toBe('application/json')
-                expect(res.body).toEqual({ api: 'up'})
-        })
-    })
-    })
-})
+
+
+    it('should return a JSON object fron the index route', async () => {
+      const response = await request(server).get('/');
+
+      expect(response.type).toEqual('application/json');
+    });
+  });
+});
