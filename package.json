@@ -23,7 +23,7 @@
     "express-session": "^1.16.2",
     "helmet": "^3.21.0",
     "jest": "^24.9.0",
-    "knex": "^0.19.4",
+    "knex": "^0.19.5",
     "nodemon": "^1.19.2",
     "session": "^0.1.0",
     "sqlite3": "^4.1.0",
